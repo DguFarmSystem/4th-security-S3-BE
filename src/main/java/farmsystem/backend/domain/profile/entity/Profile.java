@@ -30,7 +30,7 @@ public class Profile extends BaseTimeEntity {
     private ProfileType type;
 
     @Column(nullable = false)
-    private Long balance;
+    private long balance;
 
     private Date startDate;
 

@@ -26,10 +26,10 @@ public class Trade extends BaseTimeEntity {
     private Stock stock;
 
     @Column(nullable = false)
-    private Integer price;
+    private int price;
 
     @Column(nullable = false)
-    private Integer amount;
+    private int amount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
