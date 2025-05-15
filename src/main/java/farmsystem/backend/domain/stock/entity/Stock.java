@@ -1,9 +1,13 @@
 package farmsystem.backend.domain.stock.entity;
 
+import farmsystem.backend.domain.trade.entity.Trade;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -19,4 +23,7 @@ public class Stock {
 
     @Column(nullable = false)
     private String code;
+
+    @OneToMany(mappedBy = "stock")
+    private List<Trade> trades = new ArrayList<>();
 }

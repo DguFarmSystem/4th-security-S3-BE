@@ -1,10 +1,14 @@
 package farmsystem.backend.domain.member.entity;
 
 import farmsystem.backend.domain.common.entity.BaseTimeEntity;
+import farmsystem.backend.domain.profile.entity.Profile;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -23,4 +27,7 @@ public class Member extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "member")
+    private List<Profile> profiles = new ArrayList<>();
 }
