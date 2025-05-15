@@ -2,7 +2,7 @@
 name: "✨ FEATURE TEMPLATE"
 about: FEATURE TEMPLATE
 title: "[feat] "
-labels: ''
+labels: "✨ feature"
 assignees: ''
 
 ---

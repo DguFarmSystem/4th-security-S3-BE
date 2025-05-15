@@ -2,7 +2,7 @@
 name: "\U0001F41B BUG TEMPLATE"
 about: BUG TEMPLATE
 title: "[bug] "
-labels: ''
+labels: "\U0001F41B bug"
 assignees: ''
 
 ---
