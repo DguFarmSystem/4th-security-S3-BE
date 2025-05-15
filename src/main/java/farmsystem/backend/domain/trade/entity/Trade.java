@@ -5,10 +5,13 @@ import java.sql.Timestamp;
 import farmsystem.backend.domain.profile.entity.Profile;
 import farmsystem.backend.domain.stock.entity.Stock;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Trade {
 
     @Id
