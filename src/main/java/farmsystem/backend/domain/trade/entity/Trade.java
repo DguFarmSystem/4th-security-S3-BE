@@ -2,6 +2,7 @@ package farmsystem.backend.domain.trade.entity;
 
 import java.sql.Timestamp;
 
+import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import farmsystem.backend.domain.profile.entity.Profile;
 import farmsystem.backend.domain.stock.entity.Stock;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Trade {
+public class Trade extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +35,4 @@ public class Trade {
 
     @Enumerated(EnumType.STRING)
     private TradeType type;
-
-    @Column(nullable = false)
-    private Timestamp created_at;
-
-    @Column(nullable = false)
-    private Timestamp updated_at;
 }

@@ -2,6 +2,7 @@ package farmsystem.backend.domain.member.entity;
 
 import java.sql.Timestamp;
 
+import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,4 @@ public class Member {
 
     @Column(nullable = false)
     private String email;
-
-    private Timestamp created_at;
-
-    private Timestamp updated_at;
 }

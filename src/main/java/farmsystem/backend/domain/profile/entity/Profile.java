@@ -3,6 +3,7 @@ package farmsystem.backend.domain.profile.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import farmsystem.backend.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Profile {
+public class Profile extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,4 @@ public class Profile {
     private Long balance;
 
     private Date start_date;
-
-    private Timestamp created_at;
-
-    private Timestamp updated_at;
 }
