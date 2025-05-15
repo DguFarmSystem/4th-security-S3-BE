@@ -1,7 +1,5 @@
 package farmsystem.backend.domain.member.entity;
 
-import java.sql.Timestamp;
-
 import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

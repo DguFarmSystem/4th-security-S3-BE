@@ -1,7 +1,6 @@
 package farmsystem.backend.domain.profile.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import farmsystem.backend.domain.member.entity.Member;
@@ -29,5 +28,5 @@ public class Profile extends BaseTimeEntity {
     @Column(nullable = false)
     private Long balance;
 
-    private Date start_date;
+    private Date startDate;
 }

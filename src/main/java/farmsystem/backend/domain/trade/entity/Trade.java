@@ -1,7 +1,5 @@
 package farmsystem.backend.domain.trade.entity;
 
-import java.sql.Timestamp;
-
 import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import farmsystem.backend.domain.profile.entity.Profile;
 import farmsystem.backend.domain.stock.entity.Stock;
