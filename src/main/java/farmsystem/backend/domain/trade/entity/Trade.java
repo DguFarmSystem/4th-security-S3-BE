@@ -10,29 +10,30 @@ import lombok.Data;
 @Data
 @Entity
 public class Trade {
-  @Id
-  private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "profile_id")
-  private Profile profile;
+    @Id
+    private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "stock_id")
-  private Stock stock;
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
-  @Column(nullable = false)
-  private Integer price;
+    @ManyToOne
+    @JoinColumn(name = "stock_id")
+    private Stock stock;
 
-  @Column(nullable = false)
-  private Integer amount;
+    @Column(nullable = false)
+    private Integer price;
 
-  @Enumerated(EnumType.STRING)
-  private TradeType type;
+    @Column(nullable = false)
+    private Integer amount;
 
-  @Column(nullable = false)
-  private Timestamp created_at;
+    @Enumerated(EnumType.STRING)
+    private TradeType type;
 
-  @Column(nullable = false)
-  private Timestamp updated_at;
+    @Column(nullable = false)
+    private Timestamp created_at;
+
+    @Column(nullable = false)
+    private Timestamp updated_at;
 }

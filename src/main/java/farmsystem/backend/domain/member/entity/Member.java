@@ -8,19 +8,20 @@ import lombok.Data;
 @Data
 @Entity
 public class Member {
-  @Id
-  private Long id;
 
-  @Column(nullable = false)
-  private String username;
+    @Id
+    private Long id;
 
-  @Column(nullable = false)
-  private String password;
+    @Column(nullable = false)
+    private String username;
 
-  @Column(nullable = false)
-  private String email;
+    @Column(nullable = false)
+    private String password;
 
-  private Timestamp created_at;
+    @Column(nullable = false)
+    private String email;
 
-  private Timestamp updated_at;
+    private Timestamp created_at;
+
+    private Timestamp updated_at;
 }

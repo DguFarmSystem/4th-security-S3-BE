@@ -10,22 +10,23 @@ import lombok.Data;
 @Data
 @Entity
 public class Profile {
-  @Id
-  private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "member_id")
-  private Member member;
+    @Id
+    private Long id;
 
-  @Enumerated(EnumType.STRING)
-  private ProfileType type;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-  @Column(nullable = false)
-  private Long balance;
+    @Enumerated(EnumType.STRING)
+    private ProfileType type;
 
-  private Date start_date;
+    @Column(nullable = false)
+    private Long balance;
 
-  private Timestamp created_at;
+    private Date start_date;
 
-  private Timestamp updated_at;
+    private Timestamp created_at;
+
+    private Timestamp updated_at;
 }

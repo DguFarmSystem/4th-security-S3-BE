@@ -6,12 +6,13 @@ import lombok.Data;
 @Data
 @Entity
 public class Stock {
-  @Id
-  private Long id;
 
-  @Column(nullable = false)
-  private String name;
+    @Id
+    private Long id;
 
-  @Column(nullable = false)
-  private String code;
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String code;
 }
