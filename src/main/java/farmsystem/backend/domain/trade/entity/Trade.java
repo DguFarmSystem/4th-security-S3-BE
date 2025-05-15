@@ -1,14 +1,15 @@
-package farmsystem.backend.entity;
+package farmsystem.backend.domain.trade.entity;
 
 import java.sql.Timestamp;
 
-import farmsystem.backend.type.ActionType;
+import farmsystem.backend.domain.profile.entity.Profile;
+import farmsystem.backend.domain.stock.entity.Stock;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-public class ProfileStock {
+public class Trade {
   @Id
   private Long id;
 
@@ -27,7 +28,7 @@ public class ProfileStock {
   private Integer amount;
 
   @Enumerated(EnumType.STRING)
-  private ActionType type;
+  private TradeType type;
 
   @Column(nullable = false)
   private Timestamp created_at;

@@ -1,4 +1,4 @@
-package farmsystem.backend.entity;
+package farmsystem.backend.domain.stock.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

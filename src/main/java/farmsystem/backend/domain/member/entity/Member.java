@@ -1,4 +1,4 @@
-package farmsystem.backend.entity;
+package farmsystem.backend.domain.member.entity;
 
 import java.sql.Timestamp;
 

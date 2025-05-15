@@ -1,9 +1,9 @@
-package farmsystem.backend.entity;
+package farmsystem.backend.domain.profile.entity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import farmsystem.backend.type.ProfileType;
+import farmsystem.backend.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 
