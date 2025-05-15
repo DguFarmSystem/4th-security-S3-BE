@@ -26,6 +26,7 @@ public class Profile extends BaseTimeEntity {
     private Member member;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ProfileType type;
 
     @Column(nullable = false)

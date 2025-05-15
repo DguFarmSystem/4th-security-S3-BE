@@ -32,5 +32,6 @@ public class Trade extends BaseTimeEntity {
     private Integer amount;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TradeType type;
 }

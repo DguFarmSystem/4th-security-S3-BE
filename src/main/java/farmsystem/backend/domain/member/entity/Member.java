@@ -19,13 +19,13 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(length = 100, nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "member")
