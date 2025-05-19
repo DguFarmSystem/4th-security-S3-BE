@@ -1,6 +1,6 @@
 package farmsystem.backend.domain.profile.dto.response;
 
-import farmsystem.backend.domain.member.dto.resposne.MemberResponse;
+import farmsystem.backend.domain.member.dto.response.MemberResponse;
 import farmsystem.backend.domain.profile.entity.Profile;
 import farmsystem.backend.domain.profile.entity.ProfileType;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package farmsystem.backend.domain.member.dto.resposne;
+package farmsystem.backend.domain.member.dto.response;
 
 import farmsystem.backend.domain.member.entity.Member;
 import lombok.Builder;
