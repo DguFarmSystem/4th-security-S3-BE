@@ -1,7 +1,7 @@
 package farmsystem.backend.domain.profile.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import farmsystem.backend.domain.common.entity.BaseTimeEntity;
@@ -9,6 +9,7 @@ import farmsystem.backend.domain.member.entity.Member;
 import farmsystem.backend.domain.trade.entity.Trade;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,9 @@ public class Profile extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(length = 10, nullable = false)
+    private String name;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProfileType type;
@@ -32,7 +36,16 @@ public class Profile extends BaseTimeEntity {
     @Column(nullable = false)
     private long balance;
 
-    private Date startDate;
+    private LocalDate startDate;
+
+    @Builder
+    public Profile(Member member, String name, ProfileType type, long balance, LocalDate startDate) {
+        this.member = member;
+        this.name = name;
+        this.type = type;
+        this.balance = balance;
+        this.startDate = startDate;
+    }
 
     @OneToMany(mappedBy = "profile")
     private List<Trade> trades = new ArrayList<>();
