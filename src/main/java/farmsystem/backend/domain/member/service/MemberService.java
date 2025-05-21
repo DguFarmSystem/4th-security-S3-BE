@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
     private final PasswordEncoder passwordEncoder;
@@ -30,7 +31,7 @@ public class MemberService {
     @Transactional
     public MemberResponse signUp(MemberSignupRequest memberSignupRequest) {
         if(memberRepository.existsByEmail(memberSignupRequest.email())){
-            throw new ConflictException(ErrorCode.CONFLICT);
+            throw new ConflictException(ErrorCode.MEMBER_EMAIL_EXIST);
         }
 
         String encodedPassword = passwordEncoder.encode(memberSignupRequest.password());
@@ -49,7 +50,6 @@ public class MemberService {
         return MemberResponse.from(member);
     }
 
-    @Transactional
     public MemberLoginResponse login(MemberLoginRequest memberLoginRequest) {
         Member member = memberRepository.findByEmail(memberLoginRequest.email())
                 .orElseThrow(()->new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
