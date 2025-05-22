@@ -36,13 +36,16 @@ public class TradeService {
         Profile profile = profileRepository.findById(request.profileId())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.PROFILE_NOT_FOUND));
 
+        if (profile.getType() == ProfileType.LIVE) {
+            throw new InternalServerException(ErrorCode.INVALID_PROFILE_TYPE);
+        }
+
         /**
          * TODO - 거래 비밀번호 검증
          *      시점모드 시작일자 이후와 거래 날짜? 비교
-         *      종목id 대신 종목 코드 입력 받도록
          */
 
-        trade(request.price(), request.amount(), profile, request.type());
+        trade(request.price(), request.amount(), profile, request.type(), stock);
         Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
         return VirtualTradeResponse.from(savedTrade);
     }
@@ -55,13 +58,13 @@ public class TradeService {
         Profile profile = profileRepository.findByMemberIdAndType(memberId, ProfileType.LIVE)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.PROFILE_NOT_FOUND));
 
-        trade(request.price(), request.amount(), profile, request.type());
+        trade(request.price(), request.amount(), profile, request.type(), stock);
         Trade savedTrade = tradeRepository.save(request.toEntity(stock));
         return LiveTradeResponse.from(savedTrade);
     }
 
     // balance 계산
-    public void trade(int price, int amount, Profile profile, TradeType type) {
+    public void trade(int price, int amount, Profile profile, TradeType type, Stock stock) {
         int totalPrice = price * amount;
 
         if (type == TradeType.BUY) {
@@ -70,7 +73,17 @@ public class TradeService {
             }
             profile.decreaseBalance(totalPrice);
         } else {
+            validateHolding(profile, stock, amount);
             profile.increaseBalance(totalPrice);
+        }
+    }
+
+    // SELL인 경우 해당 종목 현재 보유 수량 계산
+    private void validateHolding(Profile profile, Stock stock, int sellAmount) {
+        int holdingAmount = tradeRepository.sumAmountByProfileAndStock(profile, stock);
+
+        if (holdingAmount < sellAmount) {
+            throw new InternalServerException(ErrorCode.INSUFFICIENT_STOCK);
         }
     }
 }
