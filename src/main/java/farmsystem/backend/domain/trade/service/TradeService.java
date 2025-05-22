@@ -42,17 +42,7 @@ public class TradeService {
          *      종목id 대신 종목 코드 입력 받도록
          */
 
-        int totalPrice = request.price() * request.amount();
-
-        if (request.type() == TradeType.BUY) {
-            if (profile.getBalance() < totalPrice) {
-                throw new InternalServerException(ErrorCode.INSUFFICIENT_BALANCE);
-            }
-            profile.decreaseBalance(totalPrice);
-        } else {
-            profile.increaseBalance(totalPrice);
-        }
-
+        trade(request.price(), request.amount(), profile, request.type());
         Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
         return VirtualTradeResponse.from(savedTrade);
     }
@@ -65,9 +55,16 @@ public class TradeService {
         Profile profile = profileRepository.findByMemberIdAndType(memberId, ProfileType.LIVE)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.PROFILE_NOT_FOUND));
 
-        int totalPrice = request.price() * request.amount();
+        trade(request.price(), request.amount(), profile, request.type());
+        Trade savedTrade = tradeRepository.save(request.toEntity(stock));
+        return LiveTradeResponse.from(savedTrade);
+    }
 
-        if (request.type() == TradeType.BUY) {
+    // balance 계산
+    public void trade(int price, int amount, Profile profile, TradeType type) {
+        int totalPrice = price * amount;
+
+        if (type == TradeType.BUY) {
             if (profile.getBalance() < totalPrice) {
                 throw new InternalServerException(ErrorCode.INSUFFICIENT_BALANCE);
             }
@@ -75,8 +72,5 @@ public class TradeService {
         } else {
             profile.increaseBalance(totalPrice);
         }
-
-        Trade savedTrade = tradeRepository.save(request.toEntity(stock));
-        return LiveTradeResponse.from(savedTrade);
     }
 }
