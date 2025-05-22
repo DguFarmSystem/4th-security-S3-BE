@@ -1,5 +1,6 @@
 package farmsystem.backend.domain.trade.controller;
 
+import farmsystem.backend.domain.trade.dto.request.LiveTradeRequest;
 import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
 import farmsystem.backend.domain.trade.dto.response.VirtualTradeResponse;
 import farmsystem.backend.global.common.SuccessResponse;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface TradeApi {
@@ -44,5 +46,6 @@ public interface TradeApi {
             @ApiResponse(responseCode = "404", description = "프로필/종목을 찾을 수 없음"),
             @ApiResponse(responseCode = "500", description = "잔액이 부족함")
     })
-    ResponseEntity<SuccessResponse<?>> creatLiveTrade(@Valid @RequestBody VirtualTradeRequest request);
+    public ResponseEntity<SuccessResponse<?>> creatLiveTrade(@AuthenticationPrincipal Long memberId,
+                                                             @Valid @RequestBody LiveTradeRequest request);
 }
