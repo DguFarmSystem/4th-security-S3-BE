@@ -36,7 +36,7 @@ public class MemberService {
 
         String encodedPassword = passwordEncoder.encode(memberSignupRequest.password());
 
-        Member memberToSave = memberSignupRequest.toEntity((encodedPassword));
+        Member memberToSave = memberSignupRequest.toEntity(encodedPassword);
         Profile profile = Profile.builder()
                 .member(memberToSave)
                 .name(memberToSave.getUsername())
