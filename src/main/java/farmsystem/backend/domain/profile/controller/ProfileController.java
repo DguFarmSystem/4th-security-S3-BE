@@ -16,13 +16,13 @@ public class ProfileController implements ProfileApi {
     private final ProfileService profileService;
 
     @PostMapping
-    public ResponseEntity<SuccessResponse<?>> createProfile(@RequestParam Long memberId,
+    public ResponseEntity<SuccessResponse<?>> createProfile(@AuthenticationPrincipal Long memberId,
                                                             @RequestBody CreateProfileRequest request) {
         return SuccessResponse.created(profileService.createProfile(memberId, request));
     }
 
     @GetMapping
-    public ResponseEntity<SuccessResponse<?>> getProfileList(@RequestParam Long memberId) {
+    public ResponseEntity<SuccessResponse<?>> getProfileList(@AuthenticationPrincipal Long memberId) {
         return SuccessResponse.ok(profileService.getProfileList(memberId));
     }
 }
