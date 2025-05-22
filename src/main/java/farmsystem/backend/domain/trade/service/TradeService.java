@@ -7,8 +7,8 @@ import farmsystem.backend.domain.stock.entity.Stock;
 import farmsystem.backend.domain.stock.repository.StockRepository;
 import farmsystem.backend.domain.trade.dto.request.LiveTradeRequest;
 import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
-import farmsystem.backend.domain.trade.dto.response.LiveTradeResponse;
-import farmsystem.backend.domain.trade.dto.response.VirtualTradeResponse;
+import farmsystem.backend.domain.trade.dto.response.BuyTradeResponse;
+import farmsystem.backend.domain.trade.dto.response.SellTradeResponse;
 import farmsystem.backend.domain.trade.entity.Trade;
 import farmsystem.backend.domain.trade.entity.TradeType;
 import farmsystem.backend.domain.trade.repository.TradeRepository;
@@ -28,9 +28,11 @@ public class TradeService {
     private final StockRepository stockRepository;
     private final ProfileRepository profileRepository;
 
+    // TODO - 프로필 접속 api
+
     @Transactional
-    public VirtualTradeResponse creatVirtualTrade(VirtualTradeRequest request) {
-        Stock stock = stockRepository.findById(request.stockId())
+    public Object creatVirtualTrade(VirtualTradeRequest request) {
+        Stock stock = stockRepository.findByCode(request.stockCode())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 
         Profile profile = profileRepository.findById(request.profileId())
@@ -47,20 +49,22 @@ public class TradeService {
 
         trade(request.price(), request.amount(), profile, request.type(), stock);
         Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
-        return VirtualTradeResponse.from(savedTrade);
+
+        return createTradeResponse(savedTrade, profile, stock, request.type());
     }
 
     @Transactional
-    public LiveTradeResponse creatLiveTrade(Long memberId, LiveTradeRequest request) {
-        Stock stock = stockRepository.findById(request.stockId())
+    public Object creatLiveTrade(Long memberId, LiveTradeRequest request) {
+        Stock stock = stockRepository.findByCode(request.stockCode())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 
         Profile profile = profileRepository.findByMemberIdAndType(memberId, ProfileType.LIVE)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.PROFILE_NOT_FOUND));
 
         trade(request.price(), request.amount(), profile, request.type(), stock);
-        Trade savedTrade = tradeRepository.save(request.toEntity(stock));
-        return LiveTradeResponse.from(savedTrade);
+        Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
+
+        return createTradeResponse(savedTrade, profile, stock, request.type());
     }
 
     // balance 계산
@@ -78,12 +82,25 @@ public class TradeService {
         }
     }
 
-    // SELL인 경우 해당 종목 현재 보유 수량 계산
+    // SELL일 경우 해당 종목 현재 보유 수량 계산
     private void validateHolding(Profile profile, Stock stock, int sellAmount) {
         int holdingAmount = tradeRepository.sumAmountByProfileAndStock(profile, stock);
 
         if (holdingAmount < sellAmount) {
             throw new InternalServerException(ErrorCode.INSUFFICIENT_STOCK);
+        }
+    }
+
+    private Object createTradeResponse(Trade trade, Profile profile, Stock stock, TradeType type) {
+        int holdingAmount = tradeRepository.sumAmountByProfileAndStock(profile, stock);
+
+        if (type == TradeType.BUY) {
+            int totalBuyPrice = tradeRepository.sumBuyPriceByProfileAndStock(profile, stock);
+            int totalBuyAmount = tradeRepository.sumBuyAmountByProfileAndStock(profile, stock);
+            int averagePrice = totalBuyAmount > 0 ? totalBuyPrice / totalBuyAmount : 0; // 평단가 계산
+            return BuyTradeResponse.of(trade, holdingAmount, averagePrice);
+        } else {
+            return SellTradeResponse.of(trade, holdingAmount);
         }
     }
 }

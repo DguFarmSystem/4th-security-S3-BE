@@ -11,7 +11,7 @@ public record VirtualTradeRequest(
         @NotNull
         Long profileId,
         @NotNull
-        Long stockId,
+        String stockCode,
         @NotNull @Min(1)
         int price,
         @NotNull @Min(1)
