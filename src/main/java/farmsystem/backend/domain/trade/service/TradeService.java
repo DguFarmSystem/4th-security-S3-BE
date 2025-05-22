@@ -1,10 +1,13 @@
 package farmsystem.backend.domain.trade.service;
 
 import farmsystem.backend.domain.profile.entity.Profile;
+import farmsystem.backend.domain.profile.entity.ProfileType;
 import farmsystem.backend.domain.profile.repository.ProfileRepository;
 import farmsystem.backend.domain.stock.entity.Stock;
 import farmsystem.backend.domain.stock.repository.StockRepository;
+import farmsystem.backend.domain.trade.dto.request.LiveTradeRequest;
 import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
+import farmsystem.backend.domain.trade.dto.response.LiveTradeResponse;
 import farmsystem.backend.domain.trade.dto.response.VirtualTradeResponse;
 import farmsystem.backend.domain.trade.entity.Trade;
 import farmsystem.backend.domain.trade.entity.TradeType;
@@ -50,7 +53,30 @@ public class TradeService {
             profile.increaseBalance(totalPrice);
         }
 
-        Trade savedTrade =tradeRepository.save(request.toEntity(profile, stock));
+        Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
         return VirtualTradeResponse.from(savedTrade);
+    }
+
+    @Transactional
+    public LiveTradeResponse creatLiveTrade(Long memberId, LiveTradeRequest request) {
+        Stock stock = stockRepository.findById(request.stockId())
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
+
+        Profile profile = profileRepository.findByMemberIdAndType(memberId, ProfileType.LIVE)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.PROFILE_NOT_FOUND));
+
+        int totalPrice = request.price() * request.amount();
+
+        if (request.type() == TradeType.BUY) {
+            if (profile.getBalance() < totalPrice) {
+                throw new InternalServerException(ErrorCode.INSUFFICIENT_BALANCE);
+            }
+            profile.decreaseBalance(totalPrice);
+        } else {
+            profile.increaseBalance(totalPrice);
+        }
+
+        Trade savedTrade = tradeRepository.save(request.toEntity(stock));
+        return LiveTradeResponse.from(savedTrade);
     }
 }
