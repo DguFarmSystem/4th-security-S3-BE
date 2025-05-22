@@ -22,7 +22,7 @@ public interface TradeApi {
                     "- type: BUY / SELL"
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "거래 성공",
+            @ApiResponse(responseCode = "201", description = "가상 거래 성공",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = VirtualTradeResponse.class))),
             @ApiResponse(responseCode = "404", description = "프로필/종목을 찾을 수 없음"),
@@ -30,4 +30,19 @@ public interface TradeApi {
 
     })
     ResponseEntity<SuccessResponse<?>> creatVirtualTrade(@Valid @RequestBody VirtualTradeRequest request);
+
+    @Operation(
+            summary = "시점 모드 거래",
+            description = "거래를 진행합니다.  \n" +
+                    "- stockCode, amount, price: 구매하려는 종목 코드, 수량, 단가 \n" +
+                    "- type: BUY / SELL"
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "실시간 거래 성공",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = VirtualTradeResponse.class))),
+            @ApiResponse(responseCode = "404", description = "프로필/종목을 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "잔액이 부족함")
+    })
+    ResponseEntity<SuccessResponse<?>> creatLiveTrade(@Valid @RequestBody VirtualTradeRequest request);
 }
