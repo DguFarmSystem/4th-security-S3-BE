@@ -4,8 +4,8 @@ import farmsystem.backend.domain.profile.entity.Profile;
 import farmsystem.backend.domain.profile.repository.ProfileRepository;
 import farmsystem.backend.domain.stock.entity.Stock;
 import farmsystem.backend.domain.stock.repository.StockRepository;
-import farmsystem.backend.domain.trade.dto.request.TradeRequest;
-import farmsystem.backend.domain.trade.dto.response.TradeResponse;
+import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
+import farmsystem.backend.domain.trade.dto.response.VirtualTradeResponse;
 import farmsystem.backend.domain.trade.entity.Trade;
 import farmsystem.backend.domain.trade.entity.TradeType;
 import farmsystem.backend.domain.trade.repository.TradeRepository;
@@ -26,7 +26,7 @@ public class TradeService {
     private final ProfileRepository profileRepository;
 
     @Transactional
-    public TradeResponse creatTrade(TradeRequest request) {
+    public VirtualTradeResponse creatVirtualTrade(VirtualTradeRequest request) {
         Stock stock = stockRepository.findById(request.stockId())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 
@@ -51,6 +51,6 @@ public class TradeService {
         }
 
         Trade savedTrade =tradeRepository.save(request.toEntity(profile, stock));
-        return TradeResponse.from(savedTrade);
+        return VirtualTradeResponse.from(savedTrade);
     }
 }

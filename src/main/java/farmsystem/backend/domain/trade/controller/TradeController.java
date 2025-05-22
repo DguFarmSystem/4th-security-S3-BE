@@ -1,6 +1,6 @@
 package farmsystem.backend.domain.trade.controller;
 
-import farmsystem.backend.domain.trade.dto.request.TradeRequest;
+import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
 import farmsystem.backend.domain.trade.service.TradeService;
 import farmsystem.backend.global.common.SuccessResponse;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class TradeController implements TradeApi {
     private final TradeService tradeService;
 
     @PostMapping
-    public ResponseEntity<SuccessResponse<?>> creatTrade(@Valid @RequestBody TradeRequest request) {
-        return SuccessResponse.created(tradeService.creatTrade(request));
+    public ResponseEntity<SuccessResponse<?>> creatVirtualTrade(@Valid @RequestBody VirtualTradeRequest request) {
+        return SuccessResponse.created(tradeService.creatVirtualTrade(request));
     }
 }

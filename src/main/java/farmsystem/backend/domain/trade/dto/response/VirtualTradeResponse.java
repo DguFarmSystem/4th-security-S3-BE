@@ -5,7 +5,7 @@ import farmsystem.backend.domain.trade.entity.TradeType;
 import lombok.Builder;
 
 @Builder
-public record TradeResponse(
+public record VirtualTradeResponse(
         Long tradeId,
         Long profileId,
         Long stockId,
@@ -13,8 +13,8 @@ public record TradeResponse(
         int amount,
         TradeType type
 ) {
-    public static TradeResponse from(Trade trade) {
-        return TradeResponse.builder()
+    public static VirtualTradeResponse from(Trade trade) {
+        return VirtualTradeResponse.builder()
                 .tradeId(trade.getId())
                 .profileId(trade.getProfile().getId())
                 .stockId(trade.getStock().getId())

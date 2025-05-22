@@ -1,7 +1,7 @@
 package farmsystem.backend.domain.trade.controller;
 
-import farmsystem.backend.domain.trade.dto.request.TradeRequest;
-import farmsystem.backend.domain.trade.dto.response.TradeResponse;
+import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
+import farmsystem.backend.domain.trade.dto.response.VirtualTradeResponse;
 import farmsystem.backend.global.common.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,10 +24,10 @@ public interface TradeApi {
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "거래 성공",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TradeResponse.class))),
+                            schema = @Schema(implementation = VirtualTradeResponse.class))),
             @ApiResponse(responseCode = "404", description = "프로필/종목을 찾을 수 없음"),
             @ApiResponse(responseCode = "500", description = "잔액이 부족함"),
 
     })
-    ResponseEntity<SuccessResponse<?>> creatTrade(@Valid @RequestBody TradeRequest request);
+    ResponseEntity<SuccessResponse<?>> creatVirtualTrade(@Valid @RequestBody VirtualTradeRequest request);
 }

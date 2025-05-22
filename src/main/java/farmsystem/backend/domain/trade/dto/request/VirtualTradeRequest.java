@@ -7,7 +7,7 @@ import farmsystem.backend.domain.trade.entity.TradeType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-public record TradeRequest(
+public record VirtualTradeRequest(
         @NotNull
         Long profileId,
         @NotNull
