@@ -29,7 +29,7 @@ public class TradeService {
     private final ProfileRepository profileRepository;
 
     @Transactional
-    public Object creatVirtualTrade(VirtualTradeRequest request) {
+    public Object createVirtualTrade(VirtualTradeRequest request) {
         Stock stock = stockRepository.findByCode(request.stockCode())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 
@@ -52,7 +52,7 @@ public class TradeService {
     }
 
     @Transactional
-    public Object creatLiveTrade(Long memberId, LiveTradeRequest request) {
+    public Object createLiveTrade(Long memberId, LiveTradeRequest request) {
         Stock stock = stockRepository.findByCode(request.stockCode())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 

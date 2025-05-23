@@ -32,7 +32,7 @@ public interface TradeApi {
             @ApiResponse(responseCode = "500", description = "잔액이 부족함"),
 
     })
-    ResponseEntity<SuccessResponse<?>> creatVirtualTrade(@Valid @RequestBody VirtualTradeRequest request);
+    ResponseEntity<SuccessResponse<?>> createVirtualTrade(@Valid @RequestBody VirtualTradeRequest request);
 
     @Operation(
             summary = "실시간 거래",
@@ -48,6 +48,6 @@ public interface TradeApi {
             @ApiResponse(responseCode = "404", description = "프로필/종목을 찾을 수 없음"),
             @ApiResponse(responseCode = "500", description = "잔액이 부족함")
     })
-    ResponseEntity<SuccessResponse<?>> creatLiveTrade(@RequestParam Long memberId,
+    ResponseEntity<SuccessResponse<?>> createLiveTrade(@RequestParam Long memberId,
                                                       @Valid @RequestBody LiveTradeRequest request);
 }

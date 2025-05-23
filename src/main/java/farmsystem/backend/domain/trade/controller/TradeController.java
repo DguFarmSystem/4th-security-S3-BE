@@ -17,13 +17,13 @@ public class TradeController implements TradeApi {
     private final TradeService tradeService;
 
     @PostMapping("/virtual")
-    public ResponseEntity<SuccessResponse<?>> creatVirtualTrade(@Valid @RequestBody VirtualTradeRequest request) {
-        return SuccessResponse.created(tradeService.creatVirtualTrade(request));
+    public ResponseEntity<SuccessResponse<?>> createVirtualTrade(@Valid @RequestBody VirtualTradeRequest request) {
+        return SuccessResponse.created(tradeService.createVirtualTrade(request));
     }
 
     @PostMapping("/live")
-    public ResponseEntity<SuccessResponse<?>> creatLiveTrade(@RequestParam Long memberId,
+    public ResponseEntity<SuccessResponse<?>> createLiveTrade(@RequestParam Long memberId,
                                                              @Valid @RequestBody LiveTradeRequest request) {
-        return SuccessResponse.created(tradeService.creatLiveTrade(memberId, request));
+        return SuccessResponse.created(tradeService.createLiveTrade(memberId, request));
     }
 }
