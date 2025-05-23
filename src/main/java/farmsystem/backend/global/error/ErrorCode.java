@@ -31,6 +31,7 @@ public enum ErrorCode {
     FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "C019", "파일 업로드에 실패하였습니다."),
     REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "C020", "리프레시 토큰이 존재하지 않습니다."),
 
+
     // Auth
     JSON_PARSING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "A001", "JSON 파싱에 실패하였습니다."),
     NO_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "A002", "저장된 리프레시 토큰이 없습니다."),
@@ -38,6 +39,8 @@ public enum ErrorCode {
 
     // Member
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "M001", "해당 회원을 찾을 수 없습니다."),
+    MEMBER_EMAIL_EXIST(HttpStatus.CONFLICT, "M002", "해당 이메일이 존재합니다."),
+    MEMBER_WRONG_PASSWORD(HttpStatus.UNAUTHORIZED, "M003", "비밀번호가 틀립니다.")
 
     // Stock
     STOCK_NOT_FOUND(HttpStatus.NOT_FOUND, "S001", "해당 종목을 찾을 수 없습니다."),
