@@ -45,7 +45,7 @@ public class TradeService {
          *      시점모드 시작일자 이후와 거래 날짜? 비교
          */
 
-        trade(request.price(), request.amount(), profile, request.type(), stock);
+        evaluateBalance(request.price(), request.amount(), profile, request.type(), stock);
         Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
 
         return createTradeResponse(savedTrade, profile, stock, request.type());
@@ -59,14 +59,14 @@ public class TradeService {
         Profile profile = profileRepository.findByMemberIdAndType(memberId, ProfileType.LIVE)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.PROFILE_NOT_FOUND));
 
-        trade(request.price(), request.amount(), profile, request.type(), stock);
+        evaluateBalance(request.price(), request.amount(), profile, request.type(), stock);
         Trade savedTrade = tradeRepository.save(request.toEntity(profile, stock));
 
         return createTradeResponse(savedTrade, profile, stock, request.type());
     }
 
     // balance 계산
-    public void trade(int price, int amount, Profile profile, TradeType type, Stock stock) {
+    public void evaluateBalance(int price, int amount, Profile profile, TradeType type, Stock stock) {
         int totalPrice = price * amount;
 
         if (type == TradeType.BUY) {
