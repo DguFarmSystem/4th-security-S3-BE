@@ -19,7 +19,7 @@ public interface TradeApi {
     @Operation(
             summary = "시점 모드 거래",
             description = "거래를 진행합니다.  \n" +
-                    "- profileId: 시점 접속 시 받은 id  \n" +
+                    "- profileId: 시점 조회 시 받은 id  \n" +
                     "- stockCode, price, amount: 구매하려는 종목 코드, 단가, 수량 \n" +
                     "- type: BUY / SELL \n" +
                     "- BUY인 경우 averagePrice(평단가)를 함께 반환합니다."

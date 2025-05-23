@@ -28,8 +28,6 @@ public class TradeService {
     private final StockRepository stockRepository;
     private final ProfileRepository profileRepository;
 
-    // TODO - 프로필 접속 api
-
     @Transactional
     public Object creatVirtualTrade(VirtualTradeRequest request) {
         Stock stock = stockRepository.findByCode(request.stockCode())
