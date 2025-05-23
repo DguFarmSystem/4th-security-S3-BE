@@ -8,7 +8,7 @@ public record SellTradeResponse(
         String stockCode,
         String stockName,
         int holdingAmount
-) {
+) implements TradeResponse {
     public static SellTradeResponse of(Trade trade, int holdingAmount) {
         return SellTradeResponse.builder()
                 .stockCode(trade.getStock().getCode())

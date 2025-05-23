@@ -9,7 +9,7 @@ public record BuyTradeResponse(
         String stockName,
         int holdingAmount,
         int averagePrice
-) {
+) implements TradeResponse {
     public static BuyTradeResponse of(Trade trade, int holdingAmount, int averagePrice) {
         return BuyTradeResponse.builder()
                 .stockCode(trade.getStock().getCode())

@@ -9,6 +9,7 @@ import farmsystem.backend.domain.trade.dto.request.LiveTradeRequest;
 import farmsystem.backend.domain.trade.dto.request.VirtualTradeRequest;
 import farmsystem.backend.domain.trade.dto.response.BuyTradeResponse;
 import farmsystem.backend.domain.trade.dto.response.SellTradeResponse;
+import farmsystem.backend.domain.trade.dto.response.TradeResponse;
 import farmsystem.backend.domain.trade.entity.Trade;
 import farmsystem.backend.domain.trade.entity.TradeType;
 import farmsystem.backend.domain.trade.repository.TradeRepository;
@@ -29,7 +30,7 @@ public class TradeService {
     private final ProfileRepository profileRepository;
 
     @Transactional
-    public Object createVirtualTrade(VirtualTradeRequest request) {
+    public TradeResponse createVirtualTrade(VirtualTradeRequest request) {
         Stock stock = stockRepository.findByCode(request.stockCode())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 
@@ -52,7 +53,7 @@ public class TradeService {
     }
 
     @Transactional
-    public Object createLiveTrade(Long memberId, LiveTradeRequest request) {
+    public TradeResponse createLiveTrade(Long memberId, LiveTradeRequest request) {
         Stock stock = stockRepository.findByCode(request.stockCode())
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.STOCK_NOT_FOUND));
 
@@ -89,7 +90,7 @@ public class TradeService {
         }
     }
 
-    private Object createTradeResponse(Trade trade, Profile profile, Stock stock, TradeType type) {
+    private TradeResponse createTradeResponse(Trade trade, Profile profile, Stock stock, TradeType type) {
         int holdingAmount = tradeRepository.sumAmountByProfileAndStock(profile, stock);
 
         if (type == TradeType.BUY) {
