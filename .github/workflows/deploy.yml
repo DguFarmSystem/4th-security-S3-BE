@@ -17,7 +17,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
+        
+    - name: Ensure resources directory exists
+      run: mkdir -p src/main/resources
+  
     - name: Create application.yml for build
       run: |
         echo "${{ secrets.APPLICATION_YML }}" > src/main/resources/application.yml
