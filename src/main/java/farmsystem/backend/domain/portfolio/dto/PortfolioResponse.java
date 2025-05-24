@@ -16,7 +16,7 @@ public record PortfolioResponse(
                 .stockName(holding.stockName())
                 .quantity(holding.quantity())
                 .ratio(ratio)
-                .buyPrice(holding.buyPrice())
+                .buyPrice(holding.getAveragePrice())
                 .build();
     }
 }

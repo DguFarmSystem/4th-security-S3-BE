@@ -7,4 +7,7 @@ public record HoldingDto(
         long buyPrice,
         int buyAmount
 ) {
+    public long getAveragePrice() {
+        return buyAmount == 0 ? 0 : buyPrice / buyAmount;
+    }
 }
