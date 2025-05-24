@@ -8,7 +8,7 @@ public record PortfolioResponse(
         String stockName,
         int quantity,
         double ratio,
-        long buyPrice
+        double averagePrice
 ) {
     public static PortfolioResponse from(HoldingDto holding, double ratio) {
         return PortfolioResponse.builder()
@@ -16,7 +16,7 @@ public record PortfolioResponse(
                 .stockName(holding.stockName())
                 .quantity(holding.quantity())
                 .ratio(ratio)
-                .buyPrice(holding.getAveragePrice())
+                .averagePrice(holding.getAveragePrice())
                 .build();
     }
 }
