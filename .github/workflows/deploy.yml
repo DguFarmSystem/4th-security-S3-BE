@@ -2,7 +2,7 @@ name: CI/CD Deploy Spring Boot JAR to EC2
 
 on:
   push:
-    branches: [main]
+    branches: [cicd_test2]
 
 jobs:
   build-and-deploy:
