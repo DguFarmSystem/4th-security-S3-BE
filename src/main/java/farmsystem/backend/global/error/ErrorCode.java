@@ -40,7 +40,7 @@ public enum ErrorCode {
     // Member
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "M001", "해당 회원을 찾을 수 없습니다."),
     MEMBER_EMAIL_EXIST(HttpStatus.CONFLICT, "M002", "해당 이메일이 존재합니다."),
-    MEMBER_WRONG_PASSWORD(HttpStatus.UNAUTHORIZED, "M003", "비밀번호가 틀립니다.")
+    MEMBER_WRONG_PASSWORD(HttpStatus.UNAUTHORIZED, "M003", "비밀번호가 틀립니다."),
 
     // Stock
     STOCK_NOT_FOUND(HttpStatus.NOT_FOUND, "S001", "해당 종목을 찾을 수 없습니다."),
