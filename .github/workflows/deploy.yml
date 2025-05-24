@@ -45,14 +45,6 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          # Docker 설치 (최초 1회만 필요, 이미 설치되어 있다면 생략 가능)ㅇd
-          if ! command -v docker &> /dev/null
-          then
-            curl -fsSL https://get.docker.com -o get-docker.sh
-            sudo sh get-docker.sh
-            sudo usermod -aG docker $USER
-          fi
-
           # 기존 컨테이너 중지 및 삭제
           sudo docker rm -f spring-app || true
 
@@ -68,4 +60,3 @@ jobs:
             -p 8080:8080 \
             -v ~/application.yml:/app/application.yml \
             ${{ secrets.DOCKER_USERNAME }}/spring-app:latest
-            --spring.config.location=file:/app/application.yml
