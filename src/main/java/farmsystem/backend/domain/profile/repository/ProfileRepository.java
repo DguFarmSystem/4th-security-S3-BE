@@ -15,4 +15,6 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
     List<Profile> findAllByMember(Member member);
 
     Optional<Profile> findByMemberIdAndType(Long memberId, ProfileType type);
+
+    List<Profile> findByType(ProfileType type);
 }
