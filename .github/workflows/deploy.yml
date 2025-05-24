@@ -45,7 +45,7 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          # Docker 설치 (최초 1회만 필요, 이미 설치되어 있다면 생략 가능)
+          # Docker 설치 (최초 1회만 필요, 이미 설치되어 있다면 생략 가능)ㅇ
           if ! command -v docker &> /dev/null
           then
             curl -fsSL https://get.docker.com -o get-docker.sh
