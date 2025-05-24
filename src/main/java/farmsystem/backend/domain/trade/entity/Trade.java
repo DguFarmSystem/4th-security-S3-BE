@@ -4,9 +4,7 @@ import farmsystem.backend.domain.common.entity.BaseTimeEntity;
 import farmsystem.backend.domain.profile.entity.Profile;
 import farmsystem.backend.domain.stock.entity.Stock;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
@@ -34,4 +32,13 @@ public class Trade extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TradeType type;
+
+    @Builder
+    public Trade(Profile profile, Stock stock, int price, int amount, TradeType type) {
+        this.profile = profile;
+        this.stock = stock;
+        this.price = price;
+        this.amount = amount;
+        this.type = type;
+    }
 }

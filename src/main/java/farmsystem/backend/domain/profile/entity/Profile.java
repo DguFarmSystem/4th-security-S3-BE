@@ -49,4 +49,12 @@ public class Profile extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "profile")
     private List<Trade> trades = new ArrayList<>();
+
+    public void decreaseBalance(long amount) {
+        this.balance -= amount;
+    }
+
+    public void increaseBalance(long amount) {
+        this.balance += amount;
+    }
 }
