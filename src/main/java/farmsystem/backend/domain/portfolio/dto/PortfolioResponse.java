@@ -6,7 +6,7 @@ import lombok.Builder;
 public record PortfolioResponse(
         String stockCode,
         String stockName,
-        int quantity,
+        long quantity,
         double ratio,
         double averagePrice
 ) {
